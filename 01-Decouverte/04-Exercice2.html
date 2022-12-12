@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercice 1 | jQuery</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-8 mx-auto">
+            <h1>Contact</h1>
+
+            <div class="row bg-light shadow-sm">
+                <div class="col-sm-6">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m11!1m3!1d1207.6423596510558!2d3.384346365098872!3d50.32396363367924!2m2!1f0!2f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2eb9086cf436d%3A0x5ef9151045b77bd2!2sIRMS!5e1!3m2!1sfr!2sfr!4v1670856904707!5m2!1sfr!2sfr"
+                            width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="col-sm-6">
+                    <p class="pt-3">Vous pouvez utiliser le formulaire ci-dessous pour nous contacter.
+                        Nous reviendrons vers vous dans les meilleurs délais.</p>
+                    <form novalidate id="newsletter">
+                        <div class="mb-3">
+                            <input required name="email" class="form-control" type="text" placeholder="Saisissez votre e-mail.">
+                        </div>
+                        <div class="mb-3">
+                            <input name="subject" class="form-control" type="text" placeholder="Saisissez votre sujet.">
+                        </div>
+                        <div class="mb-3">
+                            <textarea name="message" class="form-control"
+                                      placeholder="Saisissez votre message"></textarea>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-dark">Envoyer la demande</button>
+                        </div> <!-- .d-grid.gap-2 -->
+                    </form>
+                </div>
+            </div>
+        </div> <!-- .col -->
+    </div> <!-- .row -->
+</div> <!-- .container -->
+
+<!-- Librairie jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $('#newsletter').submit(function (e) {
+        e.preventDefault(); // Stopper la redirection
+
+        // Réinitialisation des erreurs
+        // $('.alert.alert-danger').remove(); // Autre possibilité
+
+        /**
+         * On va chercher les inputs qu'on souhaite récupérer
+         * Ex. <input name="email">, etc...
+         */
+        const email = $('input[name=email]');
+        const subject = $('input[name=subject]');
+        const message = $('textarea[name=message]');
+
+        /**
+         * J'aimerais vérifier la validité des champs obligatoire
+         */
+        // this.classList.add('was-validated'); // En JS
+        $(this).addClass('was-validated'); // En JQ
+
+        // console.log( this.checkValidity() );
+        if( this.checkValidity() ) {
+            /**
+             * Ici mon formulaire est valide.
+             * On souhaite afficher ses informations
+             */
+            $(this).replaceWith(`
+                <div class="alert alert-success">
+                    Merci, voici un récapitulatif de votre demande : <br><br>
+                    Sujet : ${subject.val()} <br>
+                    Message : ${this.message.value}<br><br>
+                    Vous recevrez une réponse sur votre e-mail : ${email.val()}
+                </div>
+            `);
+        } else {
+            // Ici mon formulaire n'est pas valide.
+            $(`
+                <div class="alert alert-danger">
+                    Attention, merci de bien vérifier vos champs.
+                </div>
+            `).prependTo($(this)).delay(4000).slideUp();
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Installation de jQuery</title>
+</head>
+<body>
+<!-- Librairie jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $.getJSON('https://jsonplaceholder.typicode.com/posts', posts => {
+       console.log( posts );
+    });
+
+    $.getJSON('https://ipapi.co/json', data => {
+       console.log(data);
+       $(`<h1>Votre IP : ${data.ip} ${data.org}, ${data.country_name}</h1>`).appendTo('body');
+    });
+</script>
+</body>
+</html>
