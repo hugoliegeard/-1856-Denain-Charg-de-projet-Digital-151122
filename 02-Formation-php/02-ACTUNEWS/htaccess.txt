@@ -1,0 +1,20 @@
+# http://stackoverflow.com/questions/24545272/beautify-url-with-controller-and-action-as-query-string
+# http://stackoverflow.com/questions/34529142/htaccess-pretty-url-shows-no-css-or-images-in-php-mvc?rq=1
+
+# Activation de la Réecriture des URLs
+RewriteEngine On
+
+# /categorie.php?alias=Sport (avant)
+# /categorie/sport.html (après)
+
+# Exclusions
+RewriteCond ${REQUEST_URI} ^.+$
+RewriteCond %{REQUEST_FILENAME} \.(gif|jpe?g|png|js|css|swf|php|ico|txt|pdf|xml)$ [OR]
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d [OR]
+RewriteCond %{REQUEST_FILENAME} -l
+RewriteRule ^ - [L]
+
+# Règles de Réecriture
+RewriteRule ^([^/]+)\.html categorie.php?alias=$1 [QSA,L]
+RewriteRule ^([^/]+)/([^/]+)\.html article.php?aliasCategorie=$1&aliasArticle=$2 [QSA,L]
