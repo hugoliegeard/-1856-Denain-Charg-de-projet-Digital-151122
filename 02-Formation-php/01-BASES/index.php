@@ -354,16 +354,134 @@ echo '<select>';
 echo '</select>';
 
 
+separator();
 
+echo '<h2>Les Tableaux / Array</h2>';
 
+/*
+ * Un array, ou un tableau est une variable
+ * qui contient plusieurs valeurs organisé
+ * sous forme de "clé" -> "valeur".
+ * -----------------------------------------
+ * |   0   |   1   |   2   |   3   |   4   |
+ * -----------------------------------------
+ * | Nancy |  Hugo |  Math |  Dimi |  Jim  |
+ * -----------------------------------------
+ */
 
+// -- Déclaration et remplissage d'un tableau indexé.
 
+$apprenants = array('Nancy', 'Hugo', 'Math');
+$apprenants = ['Nancy', 'Hugo', 'Math', 'Dimi', 'Jim'];
 
+function debug($data, $type = true) {
+    echo '<pre>';
+    ($type) ? print_r( $data ) : var_dump( $data );
+    echo '</pre>';
+}
 
+debug($apprenants);
 
+/*
+ * Pour afficher la valeur d'une clé d'un tableau,
+ * on utilise : monTableau[ cle ];
+ * cle = indice = index = synonymes
+ */
 
+debug( $apprenants[4] );
 
+/*
+ * Les tableaux associatifs :
+ * Les clés ne sont plus numérique, mais alphanumérique.
+ * Sous forme de string.
+ * ------------------------------------------------------------------------
+ * |     prenom   |       nom        |      telephone     |       age     |
+ * ------------------------------------------------------------------------
+ * |     Hugo     |     LIEGEARD     |     0783971515     |     33ans     |
+ * ------------------------------------------------------------------------
+ */
 
+$contact = [
+    // cle      =>  valeur
+    'prenom'    =>  'Hugo',
+    'nom'       =>  'LIEGEARD',
+    'telephone' =>  '0783971515',
+    'age'       =>  '33 ans',
+    'adresse'   =>  [
+            'rue'   => '2bis rue Louis Petit',
+            'cp'    => '59220',
+            'ville' => 'Denain',
+            'pays'  => [
+                    'nom'    => 'France',
+                    'code'   => 'FR',
+            ]
+    ]
+];
+
+echo '<h1>Bonjour ' . $contact['prenom']
+                    . ' '
+                    . $contact['nom']
+                    . '</h1>';
+
+echo "<h1>
+        Bonjour $contact[prenom] $contact[nom]
+        <small>
+            {$contact['adresse']['ville']}, {$contact['adresse']['pays']['nom']}
+        </small>
+      </h1>";
+
+/*
+ * Créée un tableau  a plusieurs dimension,
+ * contenant le prénom et nom de tous les apprenants présents.
+ */
+
+$contacts = [
+    [
+        'prenom' => 'Hugo',
+        'nom' => 'LIEGEARD',
+    ],
+    [
+        'prenom' => 'Nancy',
+        'nom' => 'DE QUEIROS',
+    ],
+    [
+        'prenom' => 'Mathieu',
+        'nom' => 'ESTIENNE',
+    ],
+    [
+        'prenom' => 'Dimitri',
+        'nom' => 'ROBIN',
+    ],
+];
+
+debug($contacts);
+
+// -- Je veux afficher le prénom de chaque contacts
+echo $contacts[0]['prenom'];
+echo $contacts[1]['prenom'];
+echo $contacts[2]['prenom'];
+
+/*
+ * Faire une boucle afin d'afficher les prénoms
+ * des contacts dans un paragraphe.
+ */
+
+$nb = count($contacts);
+for( $i = 0 ; $i < $nb ; $i++) {
+    echo "<p>{$contacts[$i]['prenom']} {$contacts[$i]['nom']}</p>";
+}
+
+// Boucle FOREACH
+
+separator();
+
+foreach ($contacts as $contact) {
+    echo "<p>{$contact['prenom']} {$contact['nom']}</p>";
+}
+
+foreach ($contacts as $index => $contact) {
+    echo "<p>$index : {$contact['prenom']} {$contact['nom']}</p>";
+}
 
 
 
